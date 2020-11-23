@@ -194,8 +194,8 @@ void call()
 int main(int argc, const char * argv[])  
 {  
     std::thread socket_server_thread(socket_server);
-    std::thread call_thread(call);
-    call_thread.join();
+    //std::thread call_thread(call);
+    //call_thread.join();
     socket_server_thread.join();
     //socket_server_thread.detach();
     return 0;  
