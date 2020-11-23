@@ -3,7 +3,6 @@
 
 #include "socket_handler.h"
 
-
 class my_client: public socket_client
 {
 public:

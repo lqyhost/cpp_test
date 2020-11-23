@@ -1,9 +1,10 @@
-#include "my_server.h"
+#include "socket_handler.h"
 #include <iostream>
-int client_fds[CONCURRENT_MAX];
+//int client_fds[CONCURRENT_MAX];
 
-bool socket_server::start()
+bool socket_server::run()
 {
+    int client_fds[client_no];
     std::cout << "socket_server start call" << std::endl;
     char input_msg[BUFFER_SIZE];
     char recv_msg[BUFFER_SIZE];
@@ -47,16 +48,16 @@ bool socket_server::start()
         {
             max_fd = STDIN_FILENO;
         }
-        printf("STDIN_FILENO=%d\n", STDIN_FILENO);
+        //printf("STDIN_FILENO=%d\n", STDIN_FILENO);
         //服务器端socket
         FD_SET(server_sock_fd, &server_fd_set);
-        printf("server_sock_fd=%d\n", server_sock_fd);
+        //printf("server_sock_fd=%d\n", server_sock_fd);
         if (max_fd < server_sock_fd)
         {
             max_fd = server_sock_fd;
         }
         //客户端连接
-        for (int i = 0; i < CONCURRENT_MAX; i++)
+        for (int i = 0; i < client_no; i++)
         {
             if (client_fds[i] != 0)
             {
@@ -91,7 +92,7 @@ bool socket_server::start()
                 {
                     exit(0);
                 }
-                for (int i = 0; i < CONCURRENT_MAX; i++)
+                for (int i = 0; i < client_no; i++)
                 {
                     if (client_fds[i] != 0)
                     {
@@ -110,7 +111,7 @@ bool socket_server::start()
                 if (client_sock_fd > 0)
                 {
                     int index = -1;
-                    for (int i = 0; i < CONCURRENT_MAX; i++)
+                    for (int i = 0; i < client_no; i++)
                     {
                         if (client_fds[i] == 0)
                         {
@@ -132,7 +133,7 @@ bool socket_server::start()
                     }
                 }
             }
-            for (int i = 0; i < CONCURRENT_MAX; i++)
+            for (int i = 0; i < client_no; i++)
             {
                 if (client_fds[i] != 0)
                 {

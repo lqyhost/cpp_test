@@ -20,19 +20,21 @@
 class socket_server
 {
 public:
-    bool start();
+    bool run();
     virtual void on_msg(const char* msg){};
     virtual void on_disconnect(int no){};
-// public:
-//     int client_fds[CONCURRENT_MAX]; 
+    void set_client(int no){client_no = no;};
+public:
+    int client_no = 5;
 };
 
 class socket_client
 {
 public:
     bool start();
-// public:
-//     int client_fds[CONCURRENT_MAX]; 
+private:
+    bool is_gateway;
+    char name[128];//tora_md tora_td_123456 strategy_test
 };
 
 #endif //SOCKET_SERVER_H

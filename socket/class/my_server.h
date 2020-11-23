@@ -3,11 +3,10 @@
 
 #include "socket_handler.h"
 
-
 class my_server: public socket_server
 {
 public:
-    bool start();
+    bool run();
     void on_msg(const char* msg)override;
     void on_disconnect(int no)override;
 };

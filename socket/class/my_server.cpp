@@ -1,10 +1,11 @@
 #include <iostream>
 #include "my_server.h"
 
-bool my_server::start()
+bool my_server::run()
 {
-    std::cout<<"start call"<<std::endl;
-    socket_server::start();
+    std::cout<<"run call"<<std::endl;
+    socket_server::set_client(100);
+    socket_server::run();
     return true;
 }
 
